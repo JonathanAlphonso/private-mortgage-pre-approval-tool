@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import Button from "react-bootstrap/Button";
 
 const Wizard = ({ children, initialValues, onSubmit }) => {
   const [stepNumber, setStepNumber] = useState(0);
@@ -53,9 +52,9 @@ const Wizard = ({ children, initialValues, onSubmit }) => {
               </button>
             )}
             <div>
-              <Button disabled={formik.isSubmitting} type="submit">
+              <button disabled={formik.isSubmitting} type="submit">
                 {isLastStep ? "Submit" : "Next"}
-              </Button>
+              </button>
             </div>
           </div>
         </Form>

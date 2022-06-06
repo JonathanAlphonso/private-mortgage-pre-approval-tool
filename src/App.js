@@ -3,8 +3,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 // import { Debug } from "./Debug";
 import Wizard from "./Wizard";
-import ValidationSteps from "./components/FormOne/ValidationSteps";
-import StepOne from "./components/FormOne/StepOne";
+import ValidationSteps from "./ValidationSteps";
+import StepOne from "./components/StepOne";
 import Button from "react-bootstrap/Button";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -17,7 +17,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // submit is called when the final page is submitted.
 
 export const WizardStep = ({ children }) => children;
-
+//
 console.log(ValidationSteps);
 
 function App() {
@@ -54,9 +54,66 @@ function App() {
           >
             <StepOne />
           </WizardStep>
+
+          <WizardStep
+            onSubmit={() => console.log("Step1 onSubmit")}
+            validationSchema={Yup.object({
+              firstName: Yup.string().required("required"),
+              lastName: Yup.string().required("required"),
+            })}
+          >
+            <div>
+              <label htmlFor="firstName">First Name</label>
+              <Field
+                autoComplete="given-name"
+                component="input"
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+                type="text"
+              />
+              <ErrorMessage
+                className="error"
+                component="div"
+                name="firstName"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName">Last Name</label>
+              <Field
+                autoComplete="family-name"
+                component="input"
+                id="lastName"
+                name="lastName"
+                placeholder="Last Name"
+                type="text"
+              />
+              <ErrorMessage className="error" component="div" name="lastName" />
+            </div>
+          </WizardStep>
+          <WizardStep
+            onSubmit={() => console.log("Step2 onSubmit")}
+            validationSchema={Yup.object({
+              email: Yup.string()
+                .email("Invalid email address")
+                .required("required"),
+            })}
+          >
+            <div>
+              <label htmlFor="email">Email</label>
+              <Field
+                autoComplete="email"
+                component="input"
+                id="email"
+                name="email"
+                placeholder="Email"
+                type="text"
+              />
+              <ErrorMessage className="error" component="div" name="email" />
+            </div>
+          </WizardStep>
         </Wizard>
       )}
-      {form === 2 && <p>Form 2 will go here</p>}
     </div>
   );
 }
