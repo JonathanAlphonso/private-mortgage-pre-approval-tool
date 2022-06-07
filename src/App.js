@@ -3,9 +3,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 // import { Debug } from "./Debug";
 import Wizard from "./Wizard";
-import ValidationSteps from "./components/FormOne/ValidationSteps";
-import StepOne from "./components/FormOne/StepOne";
+//import ValidationSteps from "./components/FormOne/ValidationSteps";
+//import StepOne from "./components/FormOne/StepOne";
 import Button from "react-bootstrap/Button";
+import FormOne from "./components/FormOne/FormOne";
+import FormTwo from "./components/FormTwo/FormTwo";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -18,7 +20,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const WizardStep = ({ children }) => children;
 
-console.log(ValidationSteps);
+//console.log(ValidationSteps);
 
 function App() {
   const [form, setForm] = useState(null);
@@ -37,26 +39,8 @@ function App() {
         </>
       )}
 
-      {form === 1 && (
-        <Wizard
-          initialValues={{
-            email: "",
-            firstName: "",
-            lastName: "",
-          }}
-          onSubmit={async (values) =>
-            sleep(300).then(() => console.log("Wizard submit", values))
-          }
-        >
-          <WizardStep
-            onSubmit={() => console.log("Step1 onSubmit")}
-            validationSchema={ValidationSteps.stepOneValidation}
-          >
-            <StepOne />
-          </WizardStep>
-        </Wizard>
-      )}
-      {form === 2 && <p>Form 2 will go here</p>}
+      {form === 1 && <FormOne />}
+      {form === 2 && <FormTwo />}
     </div>
   );
 }
